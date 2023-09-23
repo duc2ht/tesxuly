@@ -89,7 +89,7 @@ async def create_gateway_policy(
             "action": "allow",
             "enabled": True,
             "filters": ["dns"],
-            "traffic": "or".join([f"any(dns.fqdn in ${l})" for l in list_ids]),
+            "traffic": "or".join([f"any(dns.domain[*] in ${l})" for l in list_ids]),
             #"rule_settings": {
             #    "block_page_enabled": False,
             #},
@@ -110,7 +110,7 @@ async def update_gateway_policy(
             "name": name,
             "action": "allow",
             "enabled": True,
-            "traffic": "or".join([f"any(dns.fqdn in ${l})" for l in list_ids]),
+            "traffic": "or".join([f"any(dns.domain[*] in ${l})" for l in list_ids]),
         },
     ) as resp:
         if resp.status != 200:
